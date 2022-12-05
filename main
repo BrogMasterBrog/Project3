@@ -1,11 +1,271 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
 using namespace std;
+
+class Food
+{
+public:
+	string description;
+	//float calorie; //
+	float protein;
+	float carb;
+	float sugar;
+	float fiber;
+	float fat;
+	//float fattyAcidSaturated; //
+	//float fattyAcidMonosaturated; //
+	//float fattyAcidPolyunsaturated; //
+	float cholesterol;
+	float retinol;
+	float VitaminA;
+	float caroteneAlpha;
+	float caroteneBeta;
+	float cryptoxanthyn;
+	float lycopene;
+	float luteinAndZeaxanthin;
+};
+
+Food loadClassNone(Food& food, stringstream& s)
+{
+	string temp;
+
+	//Trash the first value and the opening quotation
+	getline(s, temp, ',');
+
+	//Get food description
+	getline(s, temp, ',');
+	food.description = temp;
+
+	//Trash next line
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+
+	//Get Carotene Alpha
+	getline(s, temp, ',');
+	food.caroteneAlpha = stof(temp);
+
+	//Get Carotene Beta
+	getline(s, temp, ',');
+	food.caroteneBeta = stof(temp);
+
+	//Get Cryptoxanthym
+	getline(s, temp, ',');
+	food.cryptoxanthyn = stof(temp);
+
+	//Get Carbs
+	getline(s, temp, ',');
+	food.carb = stof(temp);
+
+	//Get Cholesterol
+	getline(s, temp, ',');
+	food.cholesterol = stof(temp);
+
+	//Trash next line
+	getline(s, temp, ',');
+
+	//Get Fiber
+	getline(s, temp, ',');
+	food.fiber = stof(temp);
+
+	//Get Lutein and Zeaxaxanthin
+	getline(s, temp, ',');
+	food.luteinAndZeaxanthin = stof(temp);
+
+	//Get Lycopene
+	getline(s, temp, ',');
+	food.lycopene = stof(temp);
+
+	//Trash the next line
+	getline(s, temp, ',');
+
+	//Get protein
+	getline(s, temp, ',');
+	food.protein = stof(temp);
+
+	//Get Retinol
+	getline(s, temp, ',');
+	food.retinol = stof(temp);
+
+	//Trash next two lines
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+
+	//Get Sugar
+	getline(s, temp, ',');
+	food.sugar = stof(temp);
+
+	//Trash next two lines
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+
+	//Get Fat
+	getline(s, temp, ',');
+	food.fat = stof(temp);
+
+	//Trash next 11 lines
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+
+	//Get Vitamin A
+	getline(s, temp, ',');
+	food.VitaminA = stof(temp);
+
+	return food;
+}
+
+Food loadClassQuotations(Food& food, stringstream& s)
+{
+	string temp;
+
+	//Trash the first value and the opening quotation
+	getline(s, temp, ',');
+	getline(s, temp, '\"');
+
+	//Get food description
+	getline(s, temp, '"');
+	food.description = temp;
+
+	//Trash next line
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+
+	//Get Carotene Alpha
+	getline(s, temp, ',');
+	food.caroteneAlpha = stof(temp);
+
+	//Get Carotene Beta
+	getline(s, temp, ',');
+	food.caroteneBeta = stof(temp);
+
+	//Get Cryptoxanthym
+	getline(s, temp, ',');
+	food.cryptoxanthyn = stof(temp);
+
+	//Get Carbs
+	getline(s, temp, ',');
+	food.carb = stof(temp);
+
+	//Get Cholesterol
+	getline(s, temp, ',');
+	food.cholesterol = stof(temp);
+
+	//Trash next line
+	getline(s, temp, ',');
+
+	//Get Fiber
+	getline(s, temp, ',');
+	food.fiber = stof(temp);
+
+	//Get Lutein and Zeaxaxanthin
+	getline(s, temp, ',');
+	food.luteinAndZeaxanthin = stof(temp);
+
+	//Get Lycopene
+	getline(s, temp, ',');
+	food.lycopene = stof(temp);
+
+	//Trash the next line
+	getline(s, temp, ',');
+
+	//Get protein
+	getline(s, temp, ',');
+	food.protein = stof(temp);
+
+	//Get Retinol
+	getline(s, temp, ',');
+	food.retinol = stof(temp);
+
+	//Trash next two lines
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+
+	//Get Sugar
+	getline(s, temp, ',');
+	food.sugar = stof(temp);
+
+	//Trash next two lines
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+
+	//Get Fat
+	getline(s, temp, ',');
+	food.fat = stof(temp);
+
+	//Trash next 11 lines
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+	getline(s, temp, ',');
+
+	//Get Vitamin A
+	getline(s, temp, ',');
+	food.VitaminA = stof(temp);
+
+	return food;
+}
 
 int main()
 {
-  cout << "Hello World!";
-  cout<<"aa"<<endl;
-  cout << "michael added somethinh" << endl;
-  cout << "NBrogan";
-  return 0;
+	Food food;
+	string file = "C:/Users/407bc/source/repos/Project 3/Project 3/food.csv";
+	string line;
+	string temp;
+	bool hasQuotations = false;
+
+	vector<Food> foodVector;
+
+	ifstream in(file);
+
+	//Trash the first line
+	getline(in, line);
+	
+	//Load all values into the cache
+	while(getline(in, line))
+	{
+		cout << line << endl;
+		stringstream s(line);
+
+		//Check if it has quotations
+		for (int i = 0; i < line.length(); i++)
+		{
+			if (line.at(i) == '\"')
+			{
+				hasQuotations = true;
+			}
+		}
+
+		if (hasQuotations)
+		{
+			foodVector.push_back(loadClassQuotations(food, s));
+		}
+		else
+		{
+			foodVector.push_back(loadClassNone(food, s));
+		}
+
+		hasQuotations = false;
+	}
+
+	in.close();
+
+	return 0;
 }
