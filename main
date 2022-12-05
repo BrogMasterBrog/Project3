@@ -41,7 +41,6 @@ Food loadClassNone(Food& food, stringstream& s)
 
 	//Trash next line
 	getline(s, temp, ',');
-	getline(s, temp, ',');
 
 	//Get Carotene Alpha
 	getline(s, temp, ',');
