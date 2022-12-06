@@ -1,270 +1,992 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include <sstream>
 #include <string>
 #include <vector>
+#include "cmath"
+#include "time.h"
+#include <chrono>
 using namespace std;
+using namespace std::chrono;
 
 class Food
 {
 public:
-	string description;
-	//float calorie; //
-	float protein;
-	float carb;
-	float sugar;
-	float fiber;
-	float fat;
-	//float fattyAcidSaturated; //
-	//float fattyAcidMonosaturated; //
-	//float fattyAcidPolyunsaturated; //
-	float cholesterol;
-	float retinol;
-	float VitaminA;
-	float caroteneAlpha;
-	float caroteneBeta;
-	float cryptoxanthyn;
-	float lycopene;
-	float luteinAndZeaxanthin;
+    string description = "";
+    float protein = 0;
+    float carb = 0;
+    float sugar = 0;
+    float fiber = 0;
+    float fat = 0;
+    float cholesterol = 0;
+    float retinol = 0;
+    float VitaminA = 0;
+    float caroteneAlpha = 0;
+    float caroteneBeta = 0;
+    float cryptoxanthyn = 0;
+    float lycopene = 0;
+    float luteinAndZeaxanthin = 0;
 };
+
+void printProtein(vector<Food> vect) {
+    for (int i = 0; i < vect.size(); i++) {
+        cout << vect[i].description << " protein : " << vect[i].protein << endl;
+    }
+}
+
+
+void printFats(vector<Food> vect) {
+    for (int i = 0; i < vect.size(); i++) {
+        cout << vect[i].description << " Fats : " << vect[i].fat << endl;
+    }
+}
+
+
+void printCarbs(vector<Food> vect) {
+    for (int i = 0; i < vect.size(); i++) {
+        cout << vect[i].description << " Carbs : " << vect[i].carb << endl;
+    }
+}
+
+
+vector<Food> mergeSortProtein(vector<Food> foods) {
+    if (foods.size() > 1) {
+        int middle = foods.size() / 2;
+        vector<Food> left(foods.begin(), foods.begin() + middle);
+        vector<Food> right(foods.begin() + middle, foods.begin() + foods.size());
+        left = mergeSortProtein(left);
+        right = mergeSortProtein(right);
+        float i = 0.00;
+        float j = 0.00;
+        float k = 0.00;
+        while (i < left.size() && j < right.size()) {
+            if (left[i].protein < right[j].protein) {
+                foods[k] = left[i];
+                i++;
+            }
+            else {
+                foods[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < left.size()) {
+            foods[k] = left[i];
+            i++;
+            k++;
+        }
+
+        while (j < right.size()) {
+            foods[k] = right[j];
+            j++;
+            k++;
+
+        }
+
+    }
+    return foods;
+
+}
+
+
+
+
+
+
+vector<Food> mergeSortFiber(vector<Food> foods) {
+    if (foods.size() > 1) {
+        int middle = foods.size() / 2;
+        vector<Food> left(foods.begin(), foods.begin() + middle);
+        vector<Food> right(foods.begin() + middle, foods.begin() + foods.size());
+        left = mergeSortFiber(left);
+        right = mergeSortFiber(right);
+        float i = 0.00;
+        float j = 0.00;
+        float k = 0.00;
+        while (i < left.size() && j < right.size()) {
+            if (left[i].fiber < right[j].fiber) {
+                foods[k] = left[i];
+                i++;
+            }
+            else {
+                foods[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < left.size()) {
+            foods[k] = left[i];
+            i++;
+            k++;
+        }
+
+        while (j < right.size()) {
+            foods[k] = right[j];
+            j++;
+            k++;
+
+        }
+
+    }
+    return foods;
+
+}
+
+
+
+vector<Food> mergeSortSugar(vector<Food> foods) {
+    if (foods.size() > 1) {
+        int middle = foods.size() / 2;
+        vector<Food> left(foods.begin(), foods.begin() + middle);
+        vector<Food> right(foods.begin() + middle, foods.begin() + foods.size());
+        left = mergeSortSugar(left);
+        right = mergeSortSugar(right);
+        float i = 0.00;
+        float j = 0.00;
+        float k = 0.00;
+        while (i < left.size() && j < right.size()) {
+            if (left[i].sugar < right[j].sugar) {
+                foods[k] = left[i];
+                i++;
+            }
+            else {
+                foods[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < left.size()) {
+            foods[k] = left[i];
+            i++;
+            k++;
+        }
+
+        while (j < right.size()) {
+            foods[k] = right[j];
+            j++;
+            k++;
+
+        }
+
+    }
+    return foods;
+
+}
+
+
+
+
+
+
+vector<Food> mergeSortCarbs(vector<Food> foods) {
+    if (foods.size() > 1) {
+        int middle = foods.size() / 2;
+        vector<Food> left(foods.begin(), foods.begin() + middle);
+        vector<Food> right(foods.begin() + middle, foods.begin() + foods.size());
+        left = mergeSortCarbs(left);
+        right = mergeSortCarbs(right);
+        float i = 0.00;
+        float j = 0.00;
+        float k = 0.00;
+        while (i < left.size() && j < right.size()) {
+            if (left[i].carb < right[j].carb) {
+                foods[k] = left[i];
+                i++;
+            }
+            else {
+                foods[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < left.size()) {
+            foods[k] = left[i];
+            i++;
+            k++;
+        }
+
+        while (j < right.size()) {
+            foods[k] = right[j];
+            j++;
+            k++;
+
+        }
+
+    }
+    return foods;
+
+}
+
+
+
+vector<Food> mergeSortFats(vector<Food> foods) {
+    if (foods.size() > 1) {
+        int middle = foods.size() / 2;
+        vector<Food> left(foods.begin(), foods.begin() + middle);
+        vector<Food> right(foods.begin() + middle, foods.begin() + foods.size());
+        left = mergeSortFats(left);
+        right = mergeSortFats(right);
+        float i = 0.00;
+        float j = 0.00;
+        float k = 0.00;
+        while (i < left.size() && j < right.size()) {
+            if (left[i].fat < right[j].fat) {
+                foods[k] = left[i];
+                i++;
+            }
+            else {
+                foods[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < left.size()) {
+            foods[k] = left[i];
+            i++;
+            k++;
+        }
+
+        while (j < right.size()) {
+            foods[k] = right[j];
+            j++;
+            k++;
+
+        }
+
+    }
+    return foods;
+
+}
+
+int Partitionprotein(vector<Food>& v, int start, int end) { //protein
+
+    int pivot = end;
+    int j = start;
+    for (int i = start; i < end; ++i) {
+        if (v[i].protein < v[pivot].protein) {
+            swap(v[i], v[j]);
+            ++j;
+        }
+    }
+    swap(v[j], v[pivot]);
+    return j;
+
+}
+int Partitionfiber(vector<Food>& v, int start, int end) { //protein
+
+    int pivot = end;
+    int j = start;
+    for (int i = start; i < end; ++i) {
+        if (v[i].fiber < v[pivot].fiber) {
+            swap(v[i], v[j]);
+            ++j;
+        }
+    }
+    swap(v[j], v[pivot]);
+    return j;
+
+}
+
+
+int Partitionfat(vector<Food>& v, int start, int end) { //fatPartition
+
+    int pivot = end;
+    int j = start;
+    for (int i = start; i < end; ++i) {
+        if (v[i].fat < v[pivot].fat) {
+            swap(v[i], v[j]);
+            ++j;
+        }
+    }
+    swap(v[j], v[pivot]);
+    return j;
+
+}
+
+int Partitionsurg(vector<Food>& v, int start, int end) { //sugar partition
+
+    int pivot = end;
+    int j = start;
+    for (int i = start; i < end; ++i) {
+        if (v[i].sugar < v[pivot].sugar) {
+            swap(v[i], v[j]);
+            ++j;
+        }
+    }
+    swap(v[j], v[pivot]);
+    return j;
+
+}
+
+int Partitioncarb(vector<Food>& v, int start, int end) { //protein partiton
+
+    int pivot = end;
+    int j = start;
+    for (int i = start; i < end; ++i) {
+        if (v[i].carb < v[pivot].carb) {
+            swap(v[i], v[j]);
+            ++j;
+        }
+    }
+    swap(v[j], v[pivot]);
+    return j;
+
+}
+
+void Quicksortcarb(vector<Food>& v, int start, int end) { //quicksort for carb
+
+    if (start < end) {
+        int p = Partitioncarb(v, start, end);
+        Quicksortcarb(v, start, p - 1);
+        Quicksortcarb(v, p + 1, end);
+    }
+
+}
+void Quicksortfiber(vector<Food>& v, int start, int end) { //quicksort for fiber
+
+    if (start < end) {
+        int p = Partitionfiber(v, start, end);
+        Quicksortfiber(v, start, p - 1);
+        Quicksortfiber(v, p + 1, end);
+    }
+
+}
+void Quicksortfat(vector<Food>& v, int start, int end) { //quicksort for fat
+
+    if (start < end) {
+        int p = Partitionfat(v, start, end);
+        Quicksortfat(v, start, p - 1);
+        Quicksortfat(v, p + 1, end);
+    }
+
+}
+void Quicksortsug(vector<Food>& v, int start, int end) { //quicksort for sugar
+
+    if (start < end) {
+        int p = Partitionsurg(v, start, end);
+        Quicksortsug(v, start, p - 1);
+        Quicksortsug(v, p + 1, end);
+    }
+
+}
+void Quicksortpro(vector<Food>& v, int start, int end) { //quicksort for protein
+
+    if (start < end) {
+        int p = Partitionprotein(v, start, end);
+        Quicksortpro(v, start, p - 1);
+        Quicksortpro(v, p + 1, end);
+    }
+
+}
+
+
+vector<Food> copyvector(vector<Food>& aa) { //used to make extra vect for quicksort
+    vector<Food>hh;
+    for (int i = 0; i < aa.size(); i++) {
+        hh.push_back(aa[i]);
+    }
+    return hh;
+}
+
+
+vector<float> copyvectorCarb(vector<Food>& aa) { //used to store just carb vals
+    vector<float>hh;
+    for (int i = 0; i < aa.size(); i++) {
+        hh.push_back(aa[i].carb);
+    }
+    return hh;
+}
+
+vector<float> copyvectorProtein(vector<Food>& aa) { //used to store just protein vals
+    vector<float>hh;
+    for (int i = 0; i < aa.size(); i++) {
+        hh.push_back(aa[i].protein);
+    }
+    return hh;
+}
+
+vector<float> copyvectorFiber(vector<Food>& aa) { //
+    vector<float>hh;
+    for (int i = 0; i < aa.size(); i++) {
+        hh.push_back(aa[i].fiber);
+    }
+    return hh;
+}
+
+vector<float> copyvectorSugar(vector<Food>& aa) { //used to store just sugar vals
+    vector<float>hh;
+    for (int i = 0; i < aa.size(); i++) {
+        hh.push_back(aa[i].sugar);
+    }
+    return hh;
+}
+
+vector<float> copyvectorFat(vector<Food>& aa) { //used to store just fat vals
+    vector<float>hh;
+    for (int i = 0; i < aa.size(); i++) {
+        hh.push_back(aa[i].fat);
+    }
+    return hh;
+}
+
+
+
+
+
+
+
+
+
+
+float getClosest(float val1, float val2, float target) //used in binary search to find closest val to target between two
+{
+    if (target - val1 >= val2 - target)
+        return val2;
+    else
+        return val1;
+}
+
+
+int findClosest(vector<float> vect, int n, float target)
+{
+    float checker = 0; //used for swap return val
+    // Corner cases
+    //check if targ is less than least val
+    if (target <= vect[0])
+        return 0;
+    //check if targ is greater than largest val
+    if (target >= vect[n - 1])
+        return n - 1;
+
+    // binary search
+    int i = 0, j = n, mid = 0;
+    while (i < j) {
+        mid = (i + j) / 2;
+
+        if (vect[mid] == target)
+            return mid;
+
+        // if target is less search left
+        if (target < vect[mid]) {
+
+            // check if target > prev
+            // to mid, return closest of two
+            if (mid > 0 && target > vect[mid - 1]) {
+                checker = getClosest(vect[mid - 1], vect[mid], target);
+                if (checker == vect[mid - 1]) {
+                    return mid - 1;
+                }
+                else {
+                    return mid;
+                }
+
+            }
+
+            j = mid;
+        }
+
+        // check if target is > mid
+        else {
+            if (mid < n - 1 && target < vect[mid + 1]) {
+                checker = getClosest(vect[mid], vect[mid + 1], target);
+                if (checker == vect[mid + 1]) {
+                    return mid + 1;
+                }
+                else {
+                    return mid;
+                }
+            }
+
+            // increase i
+            i = mid + 1;
+        }
+    }
+
+    // return value closest to target
+    return mid;
+}
+
+
+
+
+
+
+
+void printFood(vector<Food> vect, int i) { //prints all values for target foods
+    cout << vect[i].description << endl;
+    cout << endl;
+    cout << "MacroNutrients" << endl;
+    cout << "----------------------------------------" << endl;
+    cout << vect[i].protein << " grams of protein" << endl;
+    cout << vect[i].fat << " grams of fat" << endl;
+    cout << vect[i].carb << " grams of carbohydrates" << endl;
+    cout << vect[i].sugar << " grams of sugar" << endl;
+    cout << vect[i].fiber << " grams of fiber" << endl;
+    cout << endl;
+    cout << "Other Nutrients" << endl;
+    cout << "----------------------------------------" << endl;
+    cout << vect[i].cholesterol << " grams of cholesterol" << endl;
+    cout << vect[i].retinol << " grams of retinol" << endl;
+    cout << vect[i].VitaminA << " grams of Vitamin A" << endl;
+    cout << vect[i].caroteneAlpha << " grams of Carotene Alpha" << endl;
+    cout << vect[i].caroteneBeta << " grams of Carotene Beta" << endl;
+    cout << vect[i].cryptoxanthyn << " grams of cryptoxanthyn" << endl;
+    cout << vect[i].lycopene << " grams of lycopene" << endl;
+    cout << vect[i].luteinAndZeaxanthin << " grams of Lutein and Zeaxanthin" << endl;
+
+}
+
+
 
 Food loadClassNone(Food& food, stringstream& s)
 {
-	string temp;
+    string temp;
 
-	//Trash the first value and the opening quotation
-	getline(s, temp, ',');
+    //Trash the first value and the opening quotation
+    getline(s, temp, ',');
 
-	//Get food description
-	getline(s, temp, ',');
-	food.description = temp;
+    //Get food description
+    getline(s, temp, ',');
+    food.description = temp;
 
-	//Trash next line
-	getline(s, temp, ',');
+    //Trash next line
+    getline(s, temp, ',');
 
-	//Get Carotene Alpha
-	getline(s, temp, ',');
-	food.caroteneAlpha = stof(temp);
+    //Get Carotene Alpha
+    getline(s, temp, ',');
+    food.caroteneAlpha = stof(temp);
 
-	//Get Carotene Beta
-	getline(s, temp, ',');
-	food.caroteneBeta = stof(temp);
+    //Get Carotene Beta
+    getline(s, temp, ',');
+    food.caroteneBeta = stof(temp);
 
-	//Get Cryptoxanthym
-	getline(s, temp, ',');
-	food.cryptoxanthyn = stof(temp);
+    //Get Cryptoxanthym
+    getline(s, temp, ',');
+    food.cryptoxanthyn = stof(temp);
 
-	//Get Carbs
-	getline(s, temp, ',');
-	food.carb = stof(temp);
+    //Get Carbs
+    getline(s, temp, ',');
+    food.carb = stof(temp);
 
-	//Get Cholesterol
-	getline(s, temp, ',');
-	food.cholesterol = stof(temp);
+    //Get Cholesterol
+    getline(s, temp, ',');
+    food.cholesterol = stof(temp);
 
-	//Trash next line
-	getline(s, temp, ',');
+    //Trash next line
+    getline(s, temp, ',');
 
-	//Get Fiber
-	getline(s, temp, ',');
-	food.fiber = stof(temp);
+    //Get Fiber
+    getline(s, temp, ',');
+    food.fiber = stof(temp);
 
-	//Get Lutein and Zeaxaxanthin
-	getline(s, temp, ',');
-	food.luteinAndZeaxanthin = stof(temp);
+    //Get Lutein and Zeaxaxanthin
+    getline(s, temp, ',');
+    food.luteinAndZeaxanthin = stof(temp);
 
-	//Get Lycopene
-	getline(s, temp, ',');
-	food.lycopene = stof(temp);
+    //Get Lycopene
+    getline(s, temp, ',');
+    food.lycopene = stof(temp);
 
-	//Trash the next line
-	getline(s, temp, ',');
+    //Trash the next line
+    getline(s, temp, ',');
 
-	//Get protein
-	getline(s, temp, ',');
-	food.protein = stof(temp);
+    //Get protein
+    getline(s, temp, ',');
+    food.protein = stof(temp);
 
-	//Get Retinol
-	getline(s, temp, ',');
-	food.retinol = stof(temp);
+    //Get Retinol
+    getline(s, temp, ',');
+    food.retinol = stof(temp);
 
-	//Trash next two lines
-	getline(s, temp, ',');
-	getline(s, temp, ',');
+    //Trash next two lines
+    getline(s, temp, ',');
+    getline(s, temp, ',');
 
-	//Get Sugar
-	getline(s, temp, ',');
-	food.sugar = stof(temp);
+    //Get Sugar
+    getline(s, temp, ',');
+    food.sugar = stof(temp);
 
-	//Trash next two lines
-	getline(s, temp, ',');
-	getline(s, temp, ',');
+    //Trash next two lines
+    getline(s, temp, ',');
+    getline(s, temp, ',');
 
-	//Get Fat
-	getline(s, temp, ',');
-	food.fat = stof(temp);
+    //Get Fat
+    getline(s, temp, ',');
+    food.fat = stof(temp);
 
-	//Trash next 11 lines
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
+    //Trash next 11 lines
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
 
-	//Get Vitamin A
-	getline(s, temp, ',');
-	food.VitaminA = stof(temp);
+    //Get Vitamin A
+    getline(s, temp, ',');
+    food.VitaminA = stof(temp);
 
-	return food;
+    return food;
 }
 
 Food loadClassQuotations(Food& food, stringstream& s)
 {
-	string temp;
+    string temp;
 
-	//Trash the first value and the opening quotation
-	getline(s, temp, ',');
-	getline(s, temp, '\"');
+    //Trash the first value and the opening quotation
+    getline(s, temp, ',');
+    getline(s, temp, '\"');
 
-	//Get food description
-	getline(s, temp, '"');
-	food.description = temp;
+    //Get food description
+    getline(s, temp, '"');
+    food.description = temp;
 
-	//Trash next line
-	getline(s, temp, ',');
-	getline(s, temp, ',');
+    //Trash next line
+    getline(s, temp, ',');
+    getline(s, temp, ',');
 
-	//Get Carotene Alpha
-	getline(s, temp, ',');
-	food.caroteneAlpha = stof(temp);
+    //Get Carotene Alpha
+    getline(s, temp, ',');
+    food.caroteneAlpha = stof(temp);
 
-	//Get Carotene Beta
-	getline(s, temp, ',');
-	food.caroteneBeta = stof(temp);
+    //Get Carotene Beta
+    getline(s, temp, ',');
+    food.caroteneBeta = stof(temp);
 
-	//Get Cryptoxanthym
-	getline(s, temp, ',');
-	food.cryptoxanthyn = stof(temp);
+    //Get Cryptoxanthym
+    getline(s, temp, ',');
+    food.cryptoxanthyn = stof(temp);
 
-	//Get Carbs
-	getline(s, temp, ',');
-	food.carb = stof(temp);
+    //Get Carbs
+    getline(s, temp, ',');
+    food.carb = stof(temp);
 
-	//Get Cholesterol
-	getline(s, temp, ',');
-	food.cholesterol = stof(temp);
+    //Get Cholesterol
+    getline(s, temp, ',');
+    food.cholesterol = stof(temp);
 
-	//Trash next line
-	getline(s, temp, ',');
+    //Trash next line
+    getline(s, temp, ',');
 
-	//Get Fiber
-	getline(s, temp, ',');
-	food.fiber = stof(temp);
+    //Get Fiber
+    getline(s, temp, ',');
+    food.fiber = stof(temp);
 
-	//Get Lutein and Zeaxaxanthin
-	getline(s, temp, ',');
-	food.luteinAndZeaxanthin = stof(temp);
+    //Get Lutein and Zeaxaxanthin
+    getline(s, temp, ',');
+    food.luteinAndZeaxanthin = stof(temp);
 
-	//Get Lycopene
-	getline(s, temp, ',');
-	food.lycopene = stof(temp);
+    //Get Lycopene
+    getline(s, temp, ',');
+    food.lycopene = stof(temp);
 
-	//Trash the next line
-	getline(s, temp, ',');
+    //Trash the next line
+    getline(s, temp, ',');
 
-	//Get protein
-	getline(s, temp, ',');
-	food.protein = stof(temp);
+    //Get protein
+    getline(s, temp, ',');
+    food.protein = stof(temp);
 
-	//Get Retinol
-	getline(s, temp, ',');
-	food.retinol = stof(temp);
+    //Get Retinol
+    getline(s, temp, ',');
+    food.retinol = stof(temp);
 
-	//Trash next two lines
-	getline(s, temp, ',');
-	getline(s, temp, ',');
+    //Trash next two lines
+    getline(s, temp, ',');
+    getline(s, temp, ',');
 
-	//Get Sugar
-	getline(s, temp, ',');
-	food.sugar = stof(temp);
+    //Get Sugar
+    getline(s, temp, ',');
+    food.sugar = stof(temp);
 
-	//Trash next two lines
-	getline(s, temp, ',');
-	getline(s, temp, ',');
+    //Trash next two lines
+    getline(s, temp, ',');
+    getline(s, temp, ',');
 
-	//Get Fat
-	getline(s, temp, ',');
-	food.fat = stof(temp);
+    //Get Fat
+    getline(s, temp, ',');
+    food.fat = stof(temp);
 
-	//Trash next 11 lines
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
-	getline(s, temp, ',');
+    //Trash next 11 lines
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
+    getline(s, temp, ',');
 
-	//Get Vitamin A
-	getline(s, temp, ',');
-	food.VitaminA = stof(temp);
+    //Get Vitamin A
+    getline(s, temp, ',');
+    food.VitaminA = stof(temp);
 
-	return food;
+    return food;
 }
+
+
+
 
 int main()
 {
-	Food food;
-	string file = "C:/Users/407bc/source/repos/Project 3/Project 3/food.csv";
-	string line;
-	string temp;
-	bool hasQuotations = false;
+    Food food;
+    string file = "C:/Users/407bc/source/repos/Project 3/Project 3/food.csv";
+    string line;
+    string temp;
+    bool hasQuotations = false;
 
-	vector<Food> foodVector;
 
-	ifstream in(file);
+    vector<Food> foodVector;
 
-	//Trash the first line
-	getline(in, line);
-	
-	//Load all values into the cache
-	while(getline(in, line))
-	{
-		cout << line << endl;
-		stringstream s(line);
+    ifstream in(file);
 
-		//Check if it has quotations
-		for (int i = 0; i < line.length(); i++)
-		{
-			if (line.at(i) == '\"')
-			{
-				hasQuotations = true;
-			}
-		}
+    //Trash the first line
+    getline(in, line);
 
-		if (hasQuotations)
-		{
-			foodVector.push_back(loadClassQuotations(food, s));
-		}
-		else
-		{
-			foodVector.push_back(loadClassNone(food, s));
-		}
+    //Load all values into the cache
+    while (getline(in, line))
+    {
+        //cout << line << endl;
+        stringstream s(line);
 
-		hasQuotations = false;
-	}
+        for (int i = 0; i < line.length(); i++)
+        {
+            if (line.at(i) == '\"')
+            {
+                hasQuotations = true;
+            }
+        }
 
-	in.close();
+        if (hasQuotations)
+        {
+            foodVector.push_back(loadClassQuotations(food, s));
+        }
+        else
+        {
+            foodVector.push_back(loadClassNone(food, s));
+        }
 
-	return 0;
+        hasQuotations = false;
+    }
+
+    in.close();
+
+
+
+    vector<Food> quickSort;
+    quickSort = copyvector(foodVector);
+    int end = quickSort.size() - 1;
+    vector<float> nutritionVal;
+
+
+
+    //user interface
+    cout << "Hello Welcome to the Food Sorter!" << endl;
+    cout << "-------------------------------------------------" << endl;
+
+    int selection = 0;
+
+    while (selection != 6)
+    {
+        cout << "What Category is most important to you?" << endl;
+        cout << "1. Carbohydrates " << endl;
+        cout << "2. Fats " << endl;
+        cout << "3. Protein " << endl;
+        cout << "4. Fiber " << endl;
+        cout << "5. Sugar " << endl;
+        cout << "6. Exit" << endl;
+        cout << "Please enter the Corresponding number" << endl;
+
+        cin >> selection;
+
+        vector<Food> mergesorted;
+        int targetIndex;
+        float grams;
+        int n = mergesorted.size() - 1;
+        int index;
+
+
+        if (selection == 1) {
+            cout << "You selected carbohydrates!" << endl;
+
+            //Start Clock
+            auto startMerge = high_resolution_clock::now();
+            mergesorted = mergeSortCarbs(foodVector);
+            //End Clock
+            auto stopMerge = high_resolution_clock::now();
+
+            //Start Clock
+            auto startQuick = high_resolution_clock::now();
+            Quicksortcarb(quickSort, 0, end);
+            //End Clock
+            auto stopQuick = high_resolution_clock::now();
+
+            nutritionVal = copyvectorCarb(mergesorted);
+            cout << "How many carbohydrates would you like? (grams)" << endl;
+            cin >> grams;
+            cout << endl << "Outputting the 3 best options!" << endl << endl;
+            index = findClosest(nutritionVal, end, grams);
+            printFood(mergesorted, index);
+            cout << endl;
+            printFood(mergesorted, index - 5);
+            cout << endl;
+            printFood(mergesorted, index + 5);
+
+            auto timeMerge = duration_cast<microseconds>(stopMerge - startMerge);
+            auto timeQuick = duration_cast<microseconds>(stopQuick - startQuick);
+
+            cout << endl << "Merge sort time: " << timeMerge.count() << " microseconds" << endl;
+            cout << "Quick sort time: " << timeQuick.count() << " microseconds" << endl;
+            cout << endl << "===================================================" << endl << endl;
+        }
+        else if (selection == 2) {
+            cout << "You selected fats!" << endl;
+
+            //Start Clock
+            auto startMerge = high_resolution_clock::now();
+            mergesorted = mergeSortFats(foodVector);
+            //End Clock
+            auto stopMerge = high_resolution_clock::now();
+
+            //Start Clock
+            auto startQuick = high_resolution_clock::now();
+            Quicksortfat(quickSort, 0, end);
+            //End Clock
+            auto stopQuick = high_resolution_clock::now();
+
+            nutritionVal = copyvectorFat(mergesorted);
+            cout << "How much fat would you like? (grams)" << endl;
+            cin >> grams;
+            cout << endl << "Outputting the 3 best options!" << endl << endl;
+            index = findClosest(nutritionVal, end, grams);
+            printFood(mergesorted, index);
+            cout << endl;
+            printFood(mergesorted, index - 5);
+            cout << endl;
+            printFood(mergesorted, index + 5);
+
+            auto timeMerge = duration_cast<microseconds>(stopMerge - startMerge);
+            auto timeQuick = duration_cast<microseconds>(stopQuick - startQuick);
+
+            cout << endl << "Merge sort time: " << timeMerge.count() << " microseconds" << endl;
+            cout << "Quick sort time: " << timeQuick.count() << " microseconds" << endl;
+            cout << endl << "===================================================" << endl << endl;
+        }
+        else if (selection == 3) {
+            cout << "You selected protein!" << endl;
+
+            //Start Clock
+            auto startMerge = high_resolution_clock::now();
+            mergesorted = mergeSortProtein(foodVector);
+            //End Clock
+            auto stopMerge = high_resolution_clock::now();
+
+            //Start Clock
+            auto startQuick = high_resolution_clock::now();
+            Quicksortpro(quickSort, 0, end);
+            //End Clock
+            auto stopQuick = high_resolution_clock::now();
+
+            nutritionVal = copyvectorProtein(mergesorted);
+            cout << "How much protein would you like? (grams)" << endl;
+            cin >> grams;
+            cout << endl << "Outputting the 3 best options!" << endl << endl;
+            index = findClosest(nutritionVal, end, grams);
+            printFood(mergesorted, index);
+            cout << endl;
+            printFood(mergesorted, index - 5);
+            cout << endl;
+            printFood(mergesorted, index + 5);
+
+            auto timeMerge = duration_cast<microseconds>(stopMerge - startMerge);
+            auto timeQuick = duration_cast<microseconds>(stopQuick - startQuick);
+
+            cout << endl << "Merge sort time: " << timeMerge.count() << " microseconds" << endl;
+            cout << "Quick sort time: " << timeQuick.count() << " microseconds" << endl;
+            cout << endl << "===================================================" << endl << endl;
+        }
+        else if (selection == 4) {
+            cout << "You selected fiber!" << endl;
+
+            //Start Clock
+            auto startMerge = high_resolution_clock::now();
+            mergesorted = mergeSortFiber(foodVector);
+            //End Clock
+            auto stopMerge = high_resolution_clock::now();
+
+            //Start Clock
+            auto startQuick = high_resolution_clock::now();
+            Quicksortfiber(quickSort, 0, end);
+            //End Clock
+            auto stopQuick = high_resolution_clock::now();
+
+            nutritionVal = copyvectorFiber(mergesorted);
+            cout << "How much fiber would you like? (grams)" << endl;
+            cin >> grams;
+            cout << endl << "Outputting the 3 best options!" << endl << endl;
+            index = findClosest(nutritionVal, end, grams);
+            printFood(mergesorted, index);
+            cout << endl;
+            printFood(mergesorted, index - 5);
+            cout << endl;
+            printFood(mergesorted, index + 5);
+
+            auto timeMerge = duration_cast<microseconds>(stopMerge - startMerge);
+            auto timeQuick = duration_cast<microseconds>(stopQuick - startQuick);
+
+            cout << endl << "Merge sort time: " << timeMerge.count() << " microseconds" << endl;
+            cout << "Quick sort time: " << timeQuick.count() << " microseconds" << endl;
+            cout << endl << "===================================================" << endl << endl;
+        }
+        else if (selection == 5) {
+            cout << "You selected sugar!" << endl;
+
+            //Start Clock
+            auto startMerge = high_resolution_clock::now();
+            mergesorted = mergeSortSugar(foodVector);
+            //End Clock
+            auto stopMerge = high_resolution_clock::now();
+
+            //Start Clock
+            auto startQuick = high_resolution_clock::now();
+            Quicksortsug(quickSort, 0, end);
+            //End Clock
+            auto stopQuick = high_resolution_clock::now();
+
+            nutritionVal = copyvectorSugar(mergesorted);
+            cout << "How much sugar would you like? (grams)" << endl;
+            cin >> grams;
+            cout << endl << "Outputting the 3 best options!" << endl << endl;
+            index = findClosest(nutritionVal, end, grams);
+            printFood(mergesorted, index);
+            cout << endl;
+            printFood(mergesorted, index - 5);
+            cout << endl;
+            printFood(mergesorted, index + 5);
+
+            auto timeMerge = duration_cast<microseconds>(stopMerge - startMerge);
+            auto timeQuick = duration_cast<microseconds>(stopQuick - startQuick);
+
+            cout << endl << "Merge sort time: " << timeMerge.count() << " microseconds" << endl;
+            cout << "Quick sort time: " << timeQuick.count() << " microseconds" << endl;
+            cout << endl <<"===================================================" << endl << endl;
+        }
+    }
+
+    return 0;
+
 }
